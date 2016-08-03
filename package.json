@@ -1,0 +1,23 @@
+{
+  "name": "react-fundamentals",
+  "version": "1.0.0",
+  "description": "Course of React Fundamentals",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djhvscf/react-fundamentals.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djhvscf/react-fundamentals/issues"
+  },
+  "homepage": "https://github.com/djhvscf/react-fundamentals#readme",
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
+  }
+}
