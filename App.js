@@ -23,23 +23,14 @@ class App extends React.Component {
         })
     }
     render(){
-        //const style = {border: "1px solid black"};
+        const style = {border: "1px solid black"};
         //let txt = this.state.txt
         //return div({style}, [Widget({onChange: this.update}), h1([txt])])
-        return (
-            <div>
-                {this.state.txt}
-                <hr/>
-                <Slider ref="red" update={this.update} />
-                {this.state.red}
-                <br/>
-                <Slider ref="green" update={this.update} />
-                {this.state.green}
-                <br/>
-                <Slider ref="blue"update={this.update} />
-                {this.state.blue}
-            </div>
-        )
+        return div({style}, [
+            div({style}, [h(Slider, {ref: "red", update: this.update}), h1([this.state.red])]),
+            div({style}, [h(Slider, {ref: "green", update: this.update}), h1([this.state.green])]),
+            div({style}, [h(Slider, {ref: "blue", update: this.update}), h1([this.state.blue])])
+        ])        
     }
 }
 
