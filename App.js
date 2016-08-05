@@ -3,39 +3,45 @@ import ReactDOM from 'react-dom';
 import h from 'react-hyperscript';
 import tags from 'hyperscript-helpers';
 
-const {div, h1, input, button} = tags(h);
+const {div, h1, input, button, label} = tags(h);
 
-class App extends React.Component {
+let Mixin = InnerComponent => class extends React.Component {
     constructor() {
         super();
         this.update = this.update.bind(this);
-        this.state = {increasing: false};
+        this.state = {val: 0};
     }
     update() {
-        ReactDOM.render(
-            <App val={this.props.val + 1} />,
-            document.getElementById('app')
-        )
-    }
-    componentWillReceiveProps(nextProps) {
         this.setState({
-            increasing: nextProps.val > this.props.val
+            val: this.state.val + 1
         })
     }
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.val % 5 === 0;
+    componentWillMount() {
+        console.log("will mount")
     }
+    render() {
+        return h(InnerComponent, {update: this.update, ...this.state, ...this.props})
+    }
+    componentDidMount() {
+        console.log("mounted")
+    }
+}
+
+const Button = (props) => button({onClick: props.update}, [props.txt, " - ", props.val])
+
+const Label = (props) => label({onMouseMove: props.update}, [props.txt, " - ", props.val])
+
+let ButtonMixed = Mixin(Button)
+let LabelMixed = Mixin(Label)
+
+class App extends React.Component {
     render(){
-        console.log(this.state.increasing)
-        return button({onClick: this.update}, [this.props.val])
-    }
-    componentDidUpdate(prevProps, prevState) {
-        console.log("prevProps", prevProps)
+        return div([h(ButtonMixed, {txt: 'Button'}), h(LabelMixed, {txt: 'Label'})])
     }
 }
 
 App.defaultProps = {
-    val : 0
+    txt : 'button'
 }
 
 export default App
