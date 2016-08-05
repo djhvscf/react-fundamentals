@@ -3,46 +3,27 @@ import ReactDOM from 'react-dom';
 import h from 'react-hyperscript';
 import tags from 'hyperscript-helpers';
 
-const {div, h1, input} = tags(h);
+const {div, h1, input, button} = tags(h);
 
 class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            red: 0,
-            green: 0,
-            blue: 0
-        }
-        this.update = this.update.bind(this);
-    }
-    update(e) {
-        this.setState({
-            red: ReactDOM.findDOMNode(this.refs.red).value,
-            green: ReactDOM.findDOMNode(this.refs.green).value,
-            blue: ReactDOM.findDOMNode(this.refs.blue).value
-        })
-    }
     render(){
-        const style = {border: "1px solid black"};
-        //let txt = this.state.txt
-        //return div({style}, [Widget({onChange: this.update}), h1([txt])])
-        return div({style}, [
-            div({style}, [h(Slider, {ref: "red", update: this.update}), h1([this.state.red])]),
-            div({style}, [h(Slider, {ref: "green", update: this.update}), h1([this.state.green])]),
-            div({style}, [h(Slider, {ref: "blue", update: this.update}), h1([this.state.blue])])
-        ])        
+        return <Button>I <Heart/> React</Button>        
     }
 }
 
-class Slider extends React.Component {
+class Button extends React.Component {
     render() {
-        return input({onChange: this.props.update, type: "range", min:"0", max:"255"})
+        return button([this.props.children])
     }
 }
+
+const Heart = () => <span>♡</span>
+
 
 ReactDOM.render(
-    <App cat={5}/>,
+    <App />,
     document.getElementById('app')
 );
+
 
 export default App
